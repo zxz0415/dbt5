@@ -40,7 +40,8 @@ SET(INTF src/interfaces)
 SET(BH src/BrokerageHouse)
 SET(CE src/Driver)
 SET(ME src/MarketExchange)
-
+aux_source_directory(src/threadPool ThreadPool)
+aux_source_directory(src/zthreadPool zThreadPool)
 #
 # Defining common groups of source files.
 #
@@ -65,6 +66,8 @@ SET(TXN_SOURCE ${TXN}/DBConnection.cpp
 #
 
 ADD_EXECUTABLE(DBT5_BROKERAGE_HOUSE
+                ${ThreadPool}
+                ${zThreadPool}
                ${EGENSRC}/DateTime
                ${EGENSRC}/locking.cpp
                ${INTF}/CSocket.cpp

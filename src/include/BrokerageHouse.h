@@ -33,7 +33,7 @@ using namespace std;
 #include "DBT5Consts.h"
 #include "CSocket.h"
 using namespace TPCE;
-
+#include "../zthreadPool/ThreadPool.h"
 class CBrokerageHouse
 {
 private:
@@ -88,7 +88,9 @@ private:
 	INT32 RunTradeUpdate(PTradeUpdateTxnInput pTxnInput,
 			CTradeUpdate &TradeUpdate);
 
+	
 	friend void *workerThread(void *);
+	zl::ThreadPool *mythreadPool;
 
 public:
 	CBrokerageHouse(const char *, const char *, const char *, const char *,const char *,const int,

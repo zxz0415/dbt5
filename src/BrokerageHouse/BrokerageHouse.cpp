@@ -254,6 +254,7 @@ CBrokerageHouse::CBrokerageHouse(const char *szHost, const char *szDBName,
 	snprintf(filename, iMaxPath, "%s/BrokerageHouse_Error.log",
 			outputDirectory);
 	m_fLog.open(filename, ios::out);
+
 }
 
 // Destructor
@@ -777,7 +778,9 @@ void CBrokerageHouse::startListener(void)
 			pThrParam->pBrokerageHouse = this;
 
 			// call entry point
+			mythreadPool->add(workerThread,reinterpret_cast<void *>(pThrParam));
 			entryWorkerThread(reinterpret_cast<void *>(pThrParam));
+
 		} catch (CSocketErr *pErr) {
 			ostringstream osErr;
 			osErr << "Problem accepting socket connection" << endl <<
