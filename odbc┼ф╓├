@@ -1,0 +1,49 @@
+[root@localhost ~]# cat /etc/odbcinst.ini 
+[PostgreSQL]
+Description=ODBC for PostgreSQL
+Driver=/usr/lib/psqlodbcw.so
+Setup=/usr/lib/libodbcpsqlS.so
+Driver64=/usr/lib64/psqlodbcw.so
+Setup64=/usr/lib64/libodbcpsqlS.so
+FileUsage=1
+
+[MySQL]
+Description=ODBC for MySQL
+Driver=/usr/lib/libmyodbc8a.so
+Setup=/usr/lib/libodbcmy8S.so
+Driver64=/usr/lib64/libmyodbc8a.so
+Setup64=/usr/lib64/libodbcmy8S.so
+FileUsage=1
+
+[MySQL ODBC 8.0 Unicode Driver]
+Driver=/usr/lib64/libmyodbc8w.so
+SETUP=/usr/lib64/libmyodbc8S.so
+UsageCount=1
+
+[MySQL ODBC 8.0 ANSI Driver]
+Driver=/usr/lib64/libmyodbc8a.so
+SETUP=/usr/lib64/libmyodbc8S.so
+UsageCount=1
+
+
+
+[root@localhost ~]# cat /etc/odbc.ini 
+[dbt]
+Description           = MySQL connection to 'dbt' database
+Driver                = MySQL
+Database              = dbt
+Server                = localhost
+#UserName              = root
+#Password              = 123456
+Port                  = 3306
+Socket                = /var/lib/mysql/mysql.sock
+
+[dbt5]
+Description           = MySQL connection to 'dbt5' database
+Driver                = MySQL
+Database              = dbt5
+Server                = 222.20.78.140
+UserName              = root
+Password              = 123456
+Port                  = 3306
+Socket                = /var/lib/mysql/mysql.sock

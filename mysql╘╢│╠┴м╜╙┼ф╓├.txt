@@ -1,0 +1,13 @@
+﻿use mysql;
+
+update user set password=password('123456') where user='root';
+delete from user where USER='';
+update user set host = '%' where user = 'root';
+
+flush privileges;
+
+systemctl disable firewalld.service 
+vi /etc/selinux/config
+将SELINUX=enforcing改为SELINUX=disabled
+重启
+

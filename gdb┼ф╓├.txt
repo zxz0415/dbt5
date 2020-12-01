@@ -1,0 +1,34 @@
+MarketExchangeMain 
+	set args -c 1000 -t 1000 -i /var/lib/pgsql/dbt5/egen/flat_in -o /tmp/r8/mee
+
+BrokerageHouseMain 
+	set args -d dbt5 -o /tmp/r8/bh
+
+DriverMain 
+	set args -c 1000 -t 1000 -f 500 -w 1 -d 20000 -y 1000 -u 1 -n 0 -i /var/lib/pgsql/dbt5/egen/flat_in -o /tmp/r8/driver
+
+b workerThread
+
+dbt5-pgsql-start-db -p '' -o /tmp/r8/db
+
+pg_ctl -w -D /var/lib/pgsql/dbt5/pgdata start
+
+update user set password=password('123456') where user='root' and host='localhost';
+
+test mysql:
+
+
+generate data : ./bin/EGenLoader -c 1000 -t 1000 -w 1 -f 500
+
+
+gdb MarketExchangeMain
+	set args -c 1000 -t 1000 -i /tmp/tpce-mysql/tpce_for_mysql/egen/flat_in -o /tmp/result/mee
+	
+gdb BrokerageHouseMain 
+	set args -d dbt -o /tmp/result/bh -u root -m 123456
+
+gdb DriverMain 
+	set args -c 1000 -t 1000 -f 500 -w 1 -d 42300 -y 1000 -u 1 -n 0 -i /tmp/tpce-mysql/tpce_for_mysql/egen/flat_in -o /tmp/result/driver
+	
+
+	
